@@ -8,7 +8,6 @@ export let currentBookName: string;
 export let currentBookPrice: string;
 export let currentBookDesc: string;
 
-
 export let bookMenuAdmin = new Menu<MyContext>("books");
 
 bookMenuAdmin
@@ -21,7 +20,6 @@ bookMenuAdmin
           currentBookName = i.book_name;
           currentBookPrice = i.price;
           currentBookDesc = i.description;
-         
 
           await editBookMsg(ctx, currentBookName);
         })
@@ -38,10 +36,7 @@ bookMenuAdmin
 
 ///// updating currentBookItems /////////
 
-export async function updateCurrentBookItems(
-  itemName: string,
-  newItem: string
-) {
+export async function updateCurrentBookItems(itemName: string, newItem: string) {
   switch (itemName) {
     case "currentBookPrice":
       currentBookPrice = newItem;
@@ -51,7 +46,6 @@ export async function updateCurrentBookItems(
       currentBookDesc = newItem;
 
       break;
-   
 
     default:
       break;

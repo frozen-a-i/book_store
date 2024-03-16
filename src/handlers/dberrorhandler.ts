@@ -13,7 +13,5 @@ export const dbErrorHandler: Middleware<Context> = async (ctx, next) => {
 // Error handler for knex().insert() function
 export async function handleInsertError(ctx: Context, error: Error) {
   console.error("Error inserting data into database:", error);
-  await ctx.reply(
-    "Sorry, an error occurred while inserting data into the database."
-  );
+  await ctx.reply("Sorry, an error occurred while inserting data into the database.");
 }

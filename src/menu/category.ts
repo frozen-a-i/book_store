@@ -14,11 +14,11 @@ menuCategory.dynamic(async () => {
   const categories = await getAllCategories();
   for (let i of categories) {
     range
-      .submenu(`${i.category_name}`, "book", async function (ctx) {
-        books = await getBooksOnThisCategory(i.id);    
-        
+      .submenu(`${i.category_name}`, "book", async (ctx) => {
+        books = await getBooksOnThisCategory(i.id);
+
         categoryNameText = i.category_name;
-        editBookMsg(ctx, `${i.category_name} janridagi asarlariii: `);
+        await editBookMsg(ctx, `${i.category_name} janridagi asarlariii: `);
       })
       .row();
   }

@@ -6,7 +6,7 @@ export let orderMenu = new Menu<MyContext>("orders-menu");
 
 // orderMenu.dynamic(async () => {
 //   const range = new MenuRange<MyContext>();
-// // 
+// //
 //   for (let i of await orders) {
 //     range
 //       .text(`${i.category_name}`, async function (ctx) {
@@ -23,4 +23,3 @@ export let orderMenu = new Menu<MyContext>("orders-menu");
 // function getAllOrders() {
 //     throw new Error("Function not implemented.");
 // }
-

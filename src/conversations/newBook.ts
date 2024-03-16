@@ -39,9 +39,9 @@ export async function newBook(conversation: MyConversation, ctx: MyContext) {
   messageIds.push(descriptionMsg.message_id);
   deleteMessage(ctx, messageIds.shift()!);
 
-  try { 
+  try {
     await createBook(bookname, price, currentCategoryId, description);
-    await replyWithTimer(ctx,"Yangi kitob muvaffaqiyatli yaratildi😀",1000)
+    await replyWithTimer(ctx, "Yangi kitob muvaffaqiyatli yaratildi😀", 1000);
   } catch (error: any) {
     await handleInsertError(ctx, error);
   }

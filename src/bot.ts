@@ -13,10 +13,7 @@ import { startHandler } from "./handlers/start";
 import { login } from "./conversations/userLogin";
 import { newBook } from "./conversations/newBook";
 import { bookActions } from "./menu/admin/bookActionsAdmin";
-import {
-  updateBookDescription,
-  updateBookPrice,
-} from "./conversations/updateBook";
+import { updateBookDescription, updateBookPrice } from "./conversations/updateBook";
 import { updateBook } from "./menu/admin/updateBook";
 import { dbErrorHandler } from "./handlers/dberrorhandler";
 import type { ParseModeFlavor } from "@grammyjs/parse-mode";
@@ -25,12 +22,11 @@ import { adminMenu } from "./menu/adminsMenu";
 import { menuCategoryAdmin } from "./menu/admin/categoryAdmin";
 import { categoryUpdate } from "./menu/admin/updateCategoryOfBooks";
 import { newCategory } from "./conversations/newCategory";
+import { config } from "dotenv";
 
-const bot = new Bot<ParseModeFlavor<MyContext>>(
-  "6829502734:AAE2UYam4W2nTw4M580C3829v_RPEfpneZM"
-);
+config();
 
-const chat_id = "1860224846";
+const bot = new Bot<ParseModeFlavor<MyContext>>(process.env.BOT_TOKEN || "");
 
 // session
 bot.use(
@@ -63,7 +59,6 @@ bookActions.register(updateBook);
 updateBook.register(categoryUpdate);
 menuCategory.register(bookMenu);
 
-
 bot.use(checkImage);
 
 bot.use(menuCategory);
@@ -71,6 +66,7 @@ bot.use(dbErrorHandler);
 bot.use(bookMenu);
 
 bot.use(startHandler);
+
 try {
   bot.start();
 } catch (error) {

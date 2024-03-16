@@ -16,16 +16,11 @@ categoryUpdate
       range
         .text(`${i.category_name}`, async (ctx) => {
           const category_id = i.id;
-          await updatingBook(
-            currentBookName,
-            undefined,
-            undefined,
-            category_id
-          );
+          await updatingBook(currentBookName, undefined, undefined, category_id);
           await replyWithTimer(ctx, `Janr muvaffaqiyatli o'zgartirildi!☺️`, 1000);
         })
         .row();
     }
     return range;
   })
-  .back("Orqaga🔙", (ctx) => editBookMsg(ctx, updateBookText));
+  .back("Orqaga🔙", async (ctx) => await editBookMsg(ctx, updateBookText));

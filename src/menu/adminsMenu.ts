@@ -11,9 +11,7 @@ adminMenu
     const range = new MenuRange<MyContext>();
     for (let i of await allAdmins) {
       range
-        .text(`${i.admin_name}`, (ctx) =>
-          ctx.reply(`${ctx.from?.first_name}`)
-        )
+        .text(`${i.admin_name}`, async (ctx) => await ctx.reply(`${ctx.from?.first_name}`))
         .text(`O'chirish ❌`, async () => {
           await deleteAdmin(i.id);
         })
@@ -26,4 +24,4 @@ adminMenu
     await ctx.conversation.enter("newAdmin");
   })
   .row()
-  .back("Orqaga🔙", ctx=>editBookMsg(ctx, firstMenuText));
+  .back("Orqaga🔙", async (ctx) => await editBookMsg(ctx, firstMenuText));
