@@ -10,8 +10,6 @@ export let menuCatAdminText = "";
 export let booksOnCategory: any;
 export let currentCategoryId: number;
 
-
-
 menuCategoryAdmin
   .dynamic(async () => {
     const range = new MenuRange<MyContext>();
@@ -21,8 +19,8 @@ menuCategoryAdmin
         .submenu(`${i.category_name}`, "books", async function (ctx) {
           currentCategoryId = i.id;
           booksOnCategory = await getBooksOnThisCategory(currentCategoryId);
-          
-          console.log(booksOnCategory)
+
+          console.log(booksOnCategory);
           menuCatAdminText = `${i.category_name} janridagi asarlar: `;
 
           editBookMsg(ctx, menuCatAdminText);

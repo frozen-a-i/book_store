@@ -1,10 +1,6 @@
 import { Menu } from "@grammyjs/menu";
 import { MyContext } from "../../types/context";
-import {
-  
-  currentBookName,
-  editBookMsg,
-} from "./bookmenuadmin";
+import { currentBookName, editBookMsg } from "./bookmenuadmin";
 
 export const updateBook = new Menu<MyContext>("update-action")
 
@@ -17,6 +13,6 @@ export const updateBook = new Menu<MyContext>("update-action")
   .text("Qisqacha ma'lumoti", async (ctx) => {
     await ctx.conversation.enter("updateBookDescription");
   })
-  .back("Orqaga", (ctx) => {
-    editBookMsg(ctx, currentBookName);
+  .back("Orqaga", async (ctx) => {
+    await editBookMsg(ctx, currentBookName);
   });

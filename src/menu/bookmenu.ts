@@ -9,11 +9,10 @@ bookMenu
     const range = new MenuRange<MyContext>();
     for (let i of await books) {
       range
-        .submenu(`${i.book_name}`,'make-order', (ctx) => {
-          ctx.reply(
+        .submenu(`${i.book_name}`, "make-order", async (ctx) => {
+          await ctx.reply(
             `Kitob nomi:${i.book_name}, Narhi: ${i.price}, 
-             Qisqacha ma'lumot: ${i.description} `,
-          
+             Qisqacha ma'lumot: ${i.description} `
           );
         })
 
@@ -21,4 +20,4 @@ bookMenu
     }
     return range;
   })
-  .back("Orqaga 🔙", (ctx) => editBookMsg(ctx, categoryNameText));
+  .back("Orqaga 🔙", async (ctx) => await editBookMsg(ctx, categoryNameText));

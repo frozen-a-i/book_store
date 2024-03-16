@@ -43,10 +43,7 @@ export async function updatingBook(
   }
   if (category_id) {
     const categoryName = await getCategory(category_id);
-    await updateCurrentBookItems(
-      "currentBookCategory",
-      categoryName[0].category_name
-    );
+    await updateCurrentBookItems("currentBookCategory", categoryName[0].category_name);
     // console.log(categoryName);
     return await knex("book").where({ book_name: bookname }).update({
       category_id,

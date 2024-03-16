@@ -18,7 +18,6 @@ export async function createOrders(
   });
 }
 
-
 export async function getorder(id: number) {
   return await knex("orders").select("book_name").where({ id });
 }

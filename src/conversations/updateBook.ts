@@ -4,10 +4,7 @@ import { currentBookName } from "../menu/admin/bookmenuadmin";
 import { MyContext, MyConversation } from "../types/context";
 import { deleteMessage } from "./newBook";
 
-export async function updateBookPrice(
-  conversation: MyConversation,
-  ctx: MyContext
-) {
+export async function updateBookPrice(conversation: MyConversation, ctx: MyContext) {
   const message = await ctx.reply(`Yangi narxni kiriting`);
   let price = await conversation.wait();
   const pricetext = price.msg?.text;
@@ -39,10 +36,7 @@ export async function updateBookPrice(
 //   }
 // }
 
-export async function updateBookDescription(
-  conversation: MyConversation,
-  ctx: MyContext
-) {
+export async function updateBookDescription(conversation: MyConversation, ctx: MyContext) {
   const message = await ctx.reply(`Kitob haqida ma'lumot kiriting`);
 
   let description = await conversation.wait();
@@ -52,11 +46,7 @@ export async function updateBookDescription(
 
   try {
     await updatingBook(currentBookName, undefined, descriptiontext);
-    await replyWithTimer(
-      ctx,
-      `Kitob haqidagi ma'lumotlar muvaffaqiyatli yangilandi!☺️`,
-      1000
-    );
+    await replyWithTimer(ctx, `Kitob haqidagi ma'lumotlar muvaffaqiyatli yangilandi!☺️`, 1000);
   } catch (error) {
     ctx.reply(`Kiritishda xatolik bo'ldi`);
     throw error;
