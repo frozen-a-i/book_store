@@ -2,6 +2,8 @@ import { Menu, MenuRange } from "@grammyjs/menu";
 import { MyContext } from "../../types/context";
 import { editBookMsg } from "../admin/bookmenuadmin";
 import { getBooksOnThisCategory } from "../../db/booksTable";
+import { basketMenu } from "./basketMenu";
+import { savatchatext } from "./makingOrder";
 
 export let bookMenu = new Menu<MyContext>("book");
 bookMenu
@@ -19,16 +21,17 @@ bookMenu
           ctx.session.user.currentBookCount[
             ctx.session.user.currentBookCountIndex
           ] = 0;
-          await editBookMsg(
-            ctx,
-            `Kitob nomi:${i.book_name}, Narhi: ${i.price}, 
-             Qisqacha ma'lumot: ${i.description} `
-          );
+          ctx.session.user.currentBookMsgText = `Kitob nomi:${i.book_name}, Narhi: ${i.price}, 
+          Qisqacha ma'lumot: ${i.description} `;
+          await editBookMsg(ctx, ctx.session.user.currentBookMsgText);
         })
 
         .row();
     }
     return range;
+  })
+  .submenu("Savatcha🛒", "basket-menu", async (ctx) => {
+    return ctx.editMessageText(await savatchatext(ctx));
   })
   .back(
     "Orqaga 🔙",

@@ -18,6 +18,7 @@ interface SessionData {
     currentBookCount: number[];
     currentBookCountIndex: number;
     selectedBooks: string[];
+    currentBookMsgText:string;
     count: number;
   };
 }
@@ -40,6 +41,7 @@ export function initial(): SessionData {
       selectedBooks: [],
       currentBookCount: [],
       currentBookCountIndex: 0,
+      currentBookMsgText:'',
       count: 0,
     },
   };

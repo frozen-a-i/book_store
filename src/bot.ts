@@ -63,7 +63,7 @@ bookMenuAdmin.register(bookActions);
 bookActions.register(updateBook);
 updateBook.register(categoryUpdate);
 menuCategory.register(bookMenu);
-makeOrder.register(basketMenu);
+menuCategory.register(basketMenu);
 bookMenu.register(makeOrder);
 
 bot.use(checkImage);
