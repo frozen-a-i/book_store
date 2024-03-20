@@ -9,6 +9,8 @@ interface SessionData {
     currentBookDesc: string;
     currentCategoryId: number;
     menuCatAdminText: string;
+    currentCategoryName: string;
+    currentBookCategory: string;
   };
   user: {
     currentBookName: string;
@@ -32,11 +34,12 @@ export function initial(): SessionData {
     admin: {
       updateBookText: "",
       currentBookName: "",
-
+      currentCategoryName: "",
       currentBookPrice: 0,
       currentBookDesc: "",
       currentCategoryId: 0,
       menuCatAdminText: "",
+      currentBookCategory: "",
     },
     user: {
       currentBookName: "",

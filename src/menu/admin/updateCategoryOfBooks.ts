@@ -21,6 +21,7 @@ categoryUpdate
             undefined,
             i.id
           );
+          ctx.session.admin.currentBookCategory=i.category_name;
           await replyWithTimer(
             ctx,
             `Janr muvaffaqiyatli o'zgartirildi!☺️`,
@@ -32,6 +33,5 @@ categoryUpdate
     return range;
   })
   .back(
-    "Orqaga🔙",
-    async (ctx) => await editBookMsg(ctx, ctx.session.admin.updateBookText)
+    "Ortga"
   );

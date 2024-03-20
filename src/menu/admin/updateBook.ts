@@ -13,6 +13,6 @@ export const updateBook = new Menu<MyContext>("update-action")
   .text("Qisqacha ma'lumoti", async (ctx) => {
     await ctx.conversation.enter("updateBookDescription");
   })
-  .back("Orqaga", async (ctx) => {
+  .submenu("Saqlash", "books", async (ctx) => {
     await editBookMsg(ctx, ctx.session.admin.currentBookName);
   });

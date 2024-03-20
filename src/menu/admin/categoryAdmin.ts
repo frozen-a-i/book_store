@@ -4,10 +4,7 @@ import { getAllCategories } from "../../db/categoriesTable";
 import { editBookMsg } from "./bookmenuadmin";
 import { firstMenuText } from "../../constants";
 
-
 export let menuCategoryAdmin = new Menu<MyContext>("menu-category-admin");
-
-
 
 menuCategoryAdmin
   .dynamic(async () => {
@@ -17,6 +14,7 @@ menuCategoryAdmin
       range
         .submenu(`${i.category_name}`, "books", async function (ctx) {
           ctx.session.admin.currentCategoryId = i.id;
+          ctx.session.admin.currentCategoryName = i.category_name;
 
           ctx.session.admin.menuCatAdminText = `${i.category_name} janridagi asarlar: `;
 

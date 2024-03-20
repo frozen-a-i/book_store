@@ -1,5 +1,4 @@
 import { createOrderItem, createOrders } from "../../db/ordertable";
-import { replyWithTimer } from "../../handlers/replyTimer";
 import { MyContext, MyConversation } from "../../types/context";
 import { deleteMessage } from "../admin/newBook";
 
@@ -17,11 +16,7 @@ export async function gettingPhone(
   
   let phone = await conversation.wait();
   const phonenumber = phone.msg?.contact?.phone_number;
-  replyWithTimer(
-    ctx,
-    `Buyurtmangiz uchun rahmat! Siz bilan aloqaga chiqamiz!`,
-    1000
-  );
+  ctx.reply(`Buyurtmangiz uchun rahmat, siz bilan aloqaga chiqamiz!☺️`)
 
   await createOrders(
     ctx.from!.id,
@@ -47,5 +42,6 @@ export async function gettingPhone(
   ctx.session.user.orderAmount = 0;
   ctx.session.user.orderBookIds = [];
   await deleteMessage(ctx, message.message_id);
-  phone.deleteMessage();
+  // phone.deleteMessage();
+
 }

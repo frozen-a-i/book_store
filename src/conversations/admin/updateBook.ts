@@ -1,5 +1,6 @@
 import { updatingBook } from "../../db/booksTable";
 import { replyWithTimer } from "../../handlers/replyTimer";
+import { editBookMsg } from "../../menu/admin/bookmenuadmin";
 
 import { MyContext, MyConversation } from "../../types/context";
 import { deleteMessage } from "./newBook";
@@ -13,14 +14,17 @@ export async function updateBookPrice(
   const pricetext = price.msg?.text;
 
   await deleteMessage(ctx, message.message_id);
-  try {
-    ctx.session.admin.currentBookPrice = Number(pricetext);
-    await updatingBook(ctx.session.admin.currentBookName, pricetext);
-    await replyWithTimer(ctx, `Kitobga yangi narx belgilandi!☺️`, 1000);
-  } catch (error) {
-    ctx.reply(`Kiritishda xatolik bo'ldi`);
-    throw error;
-  }
+  if (pricetext)
+    try {
+      ctx.session.admin.currentBookPrice = Number(pricetext);
+      await updatingBook(ctx.session.admin.currentBookName, pricetext);
+
+      await replyWithTimer(ctx, `Kitobga yangi narx belgilandi!☺️`, 1000);
+    } catch (error) {
+      ctx.reply(`Kiritishda xatolik bo'ldi`);
+      throw error;
+    }
+  
   price.deleteMessage();
 }
 
@@ -51,22 +55,23 @@ export async function updateBookDescription(
 
   await deleteMessage(ctx, message.message_id);
 
-  try {
-    ctx.session.admin.currentBookDesc = descriptiontext!;
-    await updatingBook(
-      ctx.session.admin.currentBookName,
-      undefined,
-      descriptiontext
-    );
-    await replyWithTimer(
-      ctx,
-      `Kitob haqidagi ma'lumotlar muvaffaqiyatli yangilandi!☺️`,
-      1000
-    );
-    
-  } catch (error) {
-    ctx.reply(`Kiritishda xatolik bo'ldi`);
-    throw error;
-  }
+  if (description)
+    try {
+      ctx.session.admin.currentBookDesc = descriptiontext!;
+      await updatingBook(
+        ctx.session.admin.currentBookName,
+        undefined,
+        descriptiontext
+      );
+
+      await replyWithTimer(
+        ctx,
+        `Kitob haqidagi ma'lumotlar muvaffaqiyatli yangilandi!☺️`,
+        1000
+      );
+    } catch (error) {
+      ctx.reply(`Kiritishda xatolik bo'ldi`);
+      throw error;
+    }
   description.deleteMessage();
 }

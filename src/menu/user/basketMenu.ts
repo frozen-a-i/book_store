@@ -7,6 +7,7 @@ import { replyWithTimer } from "../../handlers/replyTimer";
 export let basketMenu = new Menu<MyContext>("basket-menu")
   .text(`Buyurtma berish 🚀`, async (ctx) => {
     await ctx.conversation.enter("gettingPhone");
+    ctx.menu.close();
   })
 
   .submenu(`Savatni tozalash`, "menu-category", (ctx) => {
@@ -15,7 +16,7 @@ export let basketMenu = new Menu<MyContext>("basket-menu")
     ctx.session.user.currentBookCountIndex = 0;
     ctx.session.user.selectedBooks = [];
     ctx.session.user.orderAmount = 0;
-    ctx.session.user.orderBookIds=[];
+    ctx.session.user.orderBookIds = [];
     replyWithTimer(ctx, `Savat tozalandi!`, 500);
   })
   .row()
