@@ -2,13 +2,12 @@ import { Menu, MenuRange } from "@grammyjs/menu";
 import { MyContext } from "../../types/context";
 import { getAllCategories } from "../../db/categoriesTable";
 import { editBookMsg } from "./bookmenuadmin";
-import { firstMenuText } from "../../conversations/adminLogin";
-import { getBooksOnThisCategory } from "../../db/booksTable";
+import { firstMenuText } from "../../constants";
+
 
 export let menuCategoryAdmin = new Menu<MyContext>("menu-category-admin");
-export let menuCatAdminText = "";
-export let booksOnCategory: any;
-export let currentCategoryId: number;
+
+
 
 menuCategoryAdmin
   .dynamic(async () => {
@@ -17,13 +16,11 @@ menuCategoryAdmin
     for (let i of categories) {
       range
         .submenu(`${i.category_name}`, "books", async function (ctx) {
-          currentCategoryId = i.id;
-          booksOnCategory = await getBooksOnThisCategory(currentCategoryId);
+          ctx.session.admin.currentCategoryId = i.id;
 
-          console.log(booksOnCategory);
-          menuCatAdminText = `${i.category_name} janridagi asarlar: `;
+          ctx.session.admin.menuCatAdminText = `${i.category_name} janridagi asarlar: `;
 
-          editBookMsg(ctx, menuCatAdminText);
+          editBookMsg(ctx, ctx.session.admin.menuCatAdminText);
         })
 
         .row();

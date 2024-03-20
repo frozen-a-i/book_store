@@ -24,6 +24,13 @@ CREATE TABLE orders (
      primary key(`id`)
 );
 
+CREATE TABLE order_item (
+    id int NOT NULL auto_increment,
+    order_id int NOT NULL,
+    book_id int NOT NULL,
+    quantity int NOT NULL,
+     primary key(`id`)
+);
 CREATE TABLE category (
     id int NOT NULL auto_increment,
     category_name varChar(100),

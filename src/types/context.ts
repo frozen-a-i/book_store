@@ -1,5 +1,50 @@
 import { Conversation, ConversationFlavor } from "@grammyjs/conversations";
-import { Context } from "grammy";
+import { Context, SessionFlavor } from "grammy";
 
-export type MyContext = Context & ConversationFlavor;
+interface SessionData {
+  admin: {
+    updateBookText: string;
+    currentBookName: string;
+    currentBookPrice: number;
+    currentBookDesc: string;
+    currentCategoryId: number;
+    menuCatAdminText: string;
+  };
+  user: {
+    currentBookName: string;
+    currentCategoryId: number;
+    currentBookId: number;
+    currentCategoryName: string;
+    currentBookCount: number[];
+    currentBookCountIndex: number;
+    selectedBooks: string[];
+    count: number;
+  };
+}
+
+export function initial(): SessionData {
+  return {
+    admin: {
+      updateBookText: "",
+      currentBookName: "",
+      currentBookPrice: 0,
+      currentBookDesc: "",
+      currentCategoryId: 0,
+      menuCatAdminText: "",
+    },
+    user: {
+      currentBookName: "",
+      currentBookId: 0,
+      currentCategoryId: 0,
+      currentCategoryName: "",
+      selectedBooks: [],
+      currentBookCount: [],
+      currentBookCountIndex: 0,
+      count: 0,
+    },
+  };
+}
+export type MyContext = Context &
+  ConversationFlavor &
+  SessionFlavor<SessionData>;
 export type MyConversation = Conversation<MyContext>;

@@ -1,10 +1,8 @@
 import { Menu } from "@grammyjs/menu";
 import { editBookMsg } from "./bookmenuadmin";
 import { MyContext } from "../../types/context";
+import { actionMenuText1, actionMenuText2, actionMenuText3 } from "../../constants";
 
-export let actionMenuText1 = "Janrlar";
-export let actionMenuText2 = "Adminlar";
-export let actionMenuText3 = "Buyurtmalar";
 export const actions = new Menu<MyContext>("action")
 
   .submenu("Janrlar", "menu-category-admin", async (ctx) => {

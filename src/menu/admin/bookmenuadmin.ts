@@ -1,27 +1,25 @@
 import { Menu, MenuRange } from "@grammyjs/menu";
 import { MyContext } from "../../types/context";
-import { booksOnCategory } from "./categoryAdmin";
-import { actionMenuText1 } from "./actions";
 
-/// for admins
-export let currentBookName: string;
-export let currentBookPrice: string;
-export let currentBookDesc: string;
+import { actionMenuText1 } from "../../constants";
+import { getBooksOnThisCategory } from "../../db/booksTable";
+
+
 
 export let bookMenuAdmin = new Menu<MyContext>("books");
 
 bookMenuAdmin
-  .dynamic(async () => {
+  .dynamic(async (ctx) => {
     const range = new MenuRange<MyContext>();
-
-    for (let i of booksOnCategory) {
+    const categoryBooks= await getBooksOnThisCategory(ctx.session.admin.currentCategoryId);
+    for (let i of categoryBooks) {
       range
         .submenu(`${i.book_name}`, "book-action", async (ctx) => {
-          currentBookName = i.book_name;
-          currentBookPrice = i.price;
-          currentBookDesc = i.description;
+          ctx.session.admin.currentBookName = i.book_name;
+          ctx.session.admin.currentBookPrice = i.price;
+          ctx.session.admin.currentBookDesc = i.description;
 
-          await editBookMsg(ctx, currentBookName);
+          await editBookMsg(ctx, ctx.session.admin.currentBookName);
         })
         .row();
     }
@@ -34,23 +32,7 @@ bookMenuAdmin
     await editBookMsg(ctx, actionMenuText1);
   });
 
-///// updating currentBookItems /////////
 
-export async function updateCurrentBookItems(itemName: string, newItem: string) {
-  switch (itemName) {
-    case "currentBookPrice":
-      currentBookPrice = newItem;
-
-      break;
-    case "currentBookDesc":
-      currentBookDesc = newItem;
-
-      break;
-
-    default:
-      break;
-  }
-}
 
 export async function editBookMsg(ctx: MyContext, text: string) {
   await ctx.editMessageText(text);

@@ -4,7 +4,10 @@ import { replyWithTimer } from "../handlers/replyTimer";
 import { MyContext, MyConversation } from "../types/context";
 import { deleteMessage } from "./newBook";
 
-export async function newCategory(conversation: MyConversation, ctx: MyContext) {
+export async function newCategory(
+  conversation: MyConversation,
+  ctx: MyContext
+) {
   const message = await ctx.reply(`Yangi janrni kiriting:`);
 
   let category = await conversation.wait();

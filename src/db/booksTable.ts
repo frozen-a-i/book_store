@@ -1,6 +1,5 @@
 import { knex } from "../database";
-import { updateCurrentBookItems } from "../menu/admin/bookmenuadmin";
-import { getCategory } from "./categoriesTable";
+
 
 export async function getBooksOnThisCategory(ids: number) {
   return await knex("book").select("*").where({ category_id: ids });
@@ -36,23 +35,16 @@ export async function updatingBook(
   category_id?: number | undefined
 ) {
   if (price) {
-    updateCurrentBookItems("currentBookPrice", price);
     return await knex("book").where({ book_name: bookname }).update({
       price,
     });
   }
   if (category_id) {
-    const categoryName = await getCategory(category_id);
-    await updateCurrentBookItems("currentBookCategory", categoryName[0].category_name);
-    // console.log(categoryName);
     return await knex("book").where({ book_name: bookname }).update({
       category_id,
     });
-
-    ////it should be changed to {category_id}
   }
   if (description) {
-    updateCurrentBookItems("currentBookDesc", description);
     return await knex("book").where({ book_name: bookname }).update({
       description,
     });

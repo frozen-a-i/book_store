@@ -1,7 +1,7 @@
 import { createBook } from "../db/booksTable";
 import { handleInsertError } from "../handlers/dberrorhandler";
 import { MyContext, MyConversation } from "../types/context";
-import { currentCategoryId } from "../menu/admin/categoryAdmin";
+
 import { replyWithTimer } from "../handlers/replyTimer";
 
 // Function to delete a message
@@ -40,7 +40,7 @@ export async function newBook(conversation: MyConversation, ctx: MyContext) {
   deleteMessage(ctx, messageIds.shift()!);
 
   try {
-    await createBook(bookname, price, currentCategoryId, description);
+    await createBook(bookname, price, ctx.session.admin.currentCategoryId, description);
     await replyWithTimer(ctx, "Yangi kitob muvaffaqiyatli yaratildi😀", 1000);
   } catch (error: any) {
     await handleInsertError(ctx, error);
