@@ -1,7 +1,7 @@
-import { createAdmin } from "../db/admintable";
-import { handleInsertError } from "../handlers/dberrorhandler";
-import { replyWithTimer } from "../handlers/replyTimer";
-import { MyContext, MyConversation } from "../types/context";
+import { createAdmin } from "../../db/admintable";
+import { handleInsertError } from "../../handlers/dberrorhandler";
+import { replyWithTimer } from "../../handlers/replyTimer";
+import { MyContext, MyConversation } from "../../types/context";
 import { deleteMessage } from "./newBook";
 
 export async function newAdmin(conversation: MyConversation, ctx: MyContext) {

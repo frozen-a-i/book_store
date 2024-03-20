@@ -1,8 +1,8 @@
-import { createBook } from "../db/booksTable";
-import { handleInsertError } from "../handlers/dberrorhandler";
-import { MyContext, MyConversation } from "../types/context";
+import { createBook } from "../../db/booksTable";
+import { handleInsertError } from "../../handlers/dberrorhandler";
+import { MyContext, MyConversation } from "../../types/context";
 
-import { replyWithTimer } from "../handlers/replyTimer";
+import { replyWithTimer } from "../../handlers/replyTimer";
 
 // Function to delete a message
 export async function deleteMessage(ctx: MyContext, messageId: number) {

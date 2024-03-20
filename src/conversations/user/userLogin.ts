@@ -1,5 +1,5 @@
-import { menuCategory } from "../menu/user/category";
-import { MyContext, MyConversation } from "../types/context";
+import { menuCategory } from "../../menu/user/category";
+import { MyContext, MyConversation } from "../../types/context";
 
 export async function login(conversation: MyConversation, ctx: MyContext) {
   await ctx.reply(

@@ -18,8 +18,12 @@ interface SessionData {
     currentBookCount: number[];
     currentBookCountIndex: number;
     selectedBooks: string[];
-    currentBookMsgText:string;
+    currentBookMsgText: string;
+    currentBookPrice: number;
+    currentBookPrices: number[];
+    orderBookIds: number[];
     count: number;
+    orderAmount: number;
   };
 }
 
@@ -28,6 +32,7 @@ export function initial(): SessionData {
     admin: {
       updateBookText: "",
       currentBookName: "",
+
       currentBookPrice: 0,
       currentBookDesc: "",
       currentCategoryId: 0,
@@ -36,13 +41,17 @@ export function initial(): SessionData {
     user: {
       currentBookName: "",
       currentBookId: 0,
+      currentBookPrices: [],
       currentCategoryId: 0,
       currentCategoryName: "",
       selectedBooks: [],
       currentBookCount: [],
+      orderBookIds: [],
       currentBookCountIndex: 0,
-      currentBookMsgText:'',
+      currentBookMsgText: "",
+      currentBookPrice: 0,
       count: 0,
+      orderAmount: 0,
     },
   };
 }

@@ -1,6 +1,6 @@
-import { updateAdminId } from "../db/admintable";
-import { actions } from "../menu/admin/actions";
-import { MyContext } from "../types/context";
+import { updateAdminId } from "../../db/admintable";
+import { actions } from "../../menu/admin/actions";
+import { MyContext } from "../../types/context";
 
 
 export async function admins(ctx: MyContext) {

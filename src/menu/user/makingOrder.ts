@@ -33,6 +33,20 @@ export let makeOrder = new Menu<MyContext>("make-order")
   })
   .row()
   .text(`Savatga qo'shish`, (ctx) => {
+    if (
+      ctx.session.user.currentBookCount[ctx.session.user.currentBookCountIndex]
+    ) {
+      ctx.session.user.orderAmount +=
+        ctx.session.user.currentBookCount[
+          ctx.session.user.currentBookCountIndex
+        ] * ctx.session.user.currentBookPrice;
+
+      ctx.session.user.orderBookIds.push(ctx.session.user.currentBookId);
+      ctx.session.user.currentBookPrices.push(
+        ctx.session.user.currentBookPrice
+      );
+    }
+
     ctx.session.user.currentBookCountIndex++;
     ctx.session.user.currentBookCount[
       ctx.session.user.currentBookCountIndex
@@ -49,8 +63,18 @@ export let makeOrder = new Menu<MyContext>("make-order")
 export async function savatchatext(ctx: MyContext) {
   const text = ctx.session.user.selectedBooks
     .map((element, index) => {
-      return `${element} --> ${ctx.session.user.currentBookCount[index]}`;
+      if (ctx.session.user.currentBookCount[index]) {
+        console.log(
+          ctx.session.user.currentBookCount[index],
+          " ",
+          ctx.session.user.orderBookIds[index]
+        );
+        return `${element} --> ${ctx.session.user.currentBookCount[index]} ta, narxi: ${ctx.session.user.currentBookPrices[index]} so'mdan`;
+      }
     })
     .join("\n");
-  return text || `Savatda kitoblar mavjud emas🙁`;
+  return (
+    `Savatchada:  ${text} Jami: ${ctx.session.user.orderAmount}` ||
+    `Savatda kitoblar mavjud emas🙁`
+  );
 }

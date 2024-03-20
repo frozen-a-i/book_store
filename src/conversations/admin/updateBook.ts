@@ -1,7 +1,7 @@
-import { updatingBook } from "../db/booksTable";
-import { replyWithTimer } from "../handlers/replyTimer";
+import { updatingBook } from "../../db/booksTable";
+import { replyWithTimer } from "../../handlers/replyTimer";
 
-import { MyContext, MyConversation } from "../types/context";
+import { MyContext, MyConversation } from "../../types/context";
 import { deleteMessage } from "./newBook";
 
 export async function updateBookPrice(

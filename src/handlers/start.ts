@@ -2,7 +2,6 @@ import { Composer } from "grammy";
 import { MyContext } from "../types/context";
 import { createUser, getUser } from "../db/userTable";
 import { getAdmin } from "../db/admintable";
-import { admins } from "../conversations/adminLogin";
 
 export const composer = new Composer<MyContext>();
 
@@ -12,9 +11,16 @@ composer.command("start", async (ctx) => {
 
   // if (adminObj) await admins(ctx);
   // else {
-    if (!userObj) createUser(ctx);
-    await ctx.conversation.enter("login");
+  if (!userObj) createUser(ctx);
+  await ctx.conversation.enter("login");
   // }
+});
+composer.hears("message", async (ctx) => {
+  if (ctx.message?.contact) {
+    const phoneNumber = ctx.message.contact.phone_number;
+    await ctx.reply(`Thank you for sharing your phone number: ${phoneNumber}`);
+    console.log(phoneNumber);
+  }
 });
 
 export { composer as startHandler };

@@ -1,5 +1,5 @@
 import { MyContext } from "../types/context";
-import { deleteMessage } from "../conversations/newBook";
+import { deleteMessage } from "../conversations/admin/newBook";
 
 export async function replyWithTimer(
   ctx: MyContext,

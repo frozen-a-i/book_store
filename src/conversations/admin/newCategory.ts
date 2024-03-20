@@ -1,7 +1,7 @@
-import { createCategory } from "../db/categoriesTable";
-import { handleInsertError } from "../handlers/dberrorhandler";
-import { replyWithTimer } from "../handlers/replyTimer";
-import { MyContext, MyConversation } from "../types/context";
+import { createCategory } from "../../db/categoriesTable";
+import { handleInsertError } from "../../handlers/dberrorhandler";
+import { replyWithTimer } from "../../handlers/replyTimer";
+import { MyContext, MyConversation } from "../../types/context";
 import { deleteMessage } from "./newBook";
 
 export async function newCategory(
