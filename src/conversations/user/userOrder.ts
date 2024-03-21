@@ -1,4 +1,7 @@
+import { getAllAdmin } from "../../db/admintable";
 import { createOrderItem, createOrders } from "../../db/ordertable";
+import { sendToAdmin } from "../../handlers/adminOrder";
+import { orderText } from "../../handlers/adminOrderText";
 import { MyContext, MyConversation } from "../../types/context";
 import { deleteMessage } from "../admin/newBook";
 
@@ -13,10 +16,10 @@ export async function gettingPhone(
       one_time_keyboard: true,
     },
   });
-  
+
   let phone = await conversation.wait();
   const phonenumber = phone.msg?.contact?.phone_number;
-  ctx.reply(`Buyurtmangiz uchun rahmat, siz bilan aloqaga chiqamiz!☺️`)
+  ctx.reply(`Buyurtmangiz uchun rahmat, siz bilan aloqaga chiqamiz!☺️`);
 
   await createOrders(
     ctx.from!.id,
@@ -36,6 +39,10 @@ export async function gettingPhone(
     }
   });
 
+  const text = (await orderText(ctx)) + ` Telefon raqami: ${phonenumber}`;
+
+  await sendToAdmin(ctx, text);
+
   ctx.session.user.currentBookCount = [];
   ctx.session.user.currentBookCountIndex = 0;
   ctx.session.user.selectedBooks = [];
@@ -43,5 +50,4 @@ export async function gettingPhone(
   ctx.session.user.orderBookIds = [];
   await deleteMessage(ctx, message.message_id);
   // phone.deleteMessage();
-
 }

@@ -37,3 +37,57 @@ export async function createOrderItem(
     quantity,
   });
 }
+
+export async function getAllOrders() {
+  return await knex("orders")
+    .select(
+      "orders.id",
+      "orders.status",
+      "orders.order_date",
+      "orders.phone_number",
+      "user.tg_name",
+      "orders.total_amount"
+    )
+    .join("user", { "user.id": "orders.user_id" });
+}
+
+export async function changeStatus(id: number) {
+  return await knex("orders").where({ id }).update({
+    status: "Passiv",
+  });
+}
+
+export async function getActiveOrders() {
+  return await knex("orders")
+    .select(
+      "orders.id",
+      "orders.status",
+      "orders.order_date",
+      "orders.phone_number",
+      "user.tg_name",
+      "orders.total_amount"
+    )
+    .join("user", { "user.id": "orders.user_id" })
+    .where({ status: "Aktiv" });
+}
+
+export async function getPassiveOrders() {
+  return await knex("orders")
+    .select(
+      "orders.id",
+      "orders.status",
+      "orders.order_date",
+      "orders.phone_number",
+      "user.tg_name",
+      "orders.total_amount"
+    )
+    .join("user", { "user.id": "orders.user_id" })
+    .where({ status: "Passiv" });
+}
+
+export async function getOrderItems(id: number) {
+  return await knex("order_item")
+    .select("book.book_name", "book.price", "order_item.quantity")
+    .join("book", { "book.id": "order_item.book_id" })
+    .where("order_id", id);
+}

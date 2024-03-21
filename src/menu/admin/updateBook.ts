@@ -14,5 +14,5 @@ export const updateBook = new Menu<MyContext>("update-action")
     await ctx.conversation.enter("updateBookDescription");
   })
   .submenu("Saqlash", "books", async (ctx) => {
-    await editBookMsg(ctx, ctx.session.admin.currentBookName);
+    await editBookMsg(ctx, ctx.session.admin.menuCatAdminText);
   });

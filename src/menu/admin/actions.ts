@@ -12,6 +12,6 @@ export const actions = new Menu<MyContext>("action")
   .submenu("Adminlar", "admin-menu", async (ctx) => {
     await editBookMsg(ctx, actionMenuText2);
   })
-  .submenu("Buyurtmalar", "orders-menu", async (ctx) => {
+  .submenu("Buyurtmalar", 'order-action-menu', async (ctx) => {
     await editBookMsg(ctx, actionMenuText3);
   });

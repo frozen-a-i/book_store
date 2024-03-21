@@ -2,7 +2,6 @@ import { conversations, createConversation } from "@grammyjs/conversations";
 import { Bot, session } from "grammy";
 import { MyContext } from "./types/context";
 
-
 import { menuCategory } from "./menu/user/category";
 
 import { actions } from "./menu/admin/actions";
@@ -27,10 +26,12 @@ import { categoryUpdate } from "./menu/admin/updateCategoryOfBooks";
 import { newCategory } from "./conversations/admin/newCategory";
 import { initial } from "./types/context";
 import { config } from "dotenv";
-
+import { menuOrdersAdmin } from "./menu/admin/ordersMenu";
 import { basketMenu } from "./menu/user/basketMenu";
 import { makeOrder } from "./menu/user/makingOrder";
 import { gettingPhone } from "./conversations/user/userOrder";
+import { orderActionMenu } from "./menu/admin/orderActions";
+import { orderItemMenu } from "./menu/admin/orderItemMenu";
 
 config();
 
@@ -58,7 +59,9 @@ bot.use(createConversation(updateBookDescription));
 bot.use(actions);
 actions.register(adminMenu);
 actions.register(menuCategoryAdmin);
-
+actions.register(orderActionMenu);
+orderActionMenu.register(menuOrdersAdmin);
+menuOrdersAdmin.register(orderItemMenu);
 menuCategoryAdmin.register(bookMenuAdmin);
 bookMenuAdmin.register(bookActions);
 bookActions.register(updateBook);
@@ -66,8 +69,6 @@ updateBook.register(categoryUpdate);
 menuCategory.register(bookMenu);
 menuCategory.register(basketMenu);
 bookMenu.register(makeOrder);
-
-
 
 bot.use(menuCategory);
 bot.use(dbErrorHandler);

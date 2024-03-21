@@ -9,11 +9,11 @@ export const composer = new Composer<MyContext>();
 composer.command("start", async (ctx) => {
   const userObj = await getUser(ctx.from?.id);
   const adminObj = await getAdmin(ctx.from?.username);
-
-  if (adminObj) await admins(ctx);
+  console.log(adminObj);
+  if (adminObj.length > 0) await admins(ctx);
   else {
-  if (!userObj) createUser(ctx);
-  await ctx.conversation.enter("login");
+    if (!userObj) createUser(ctx);
+    await ctx.conversation.enter("login");
   }
 });
 composer.hears("message", async (ctx) => {

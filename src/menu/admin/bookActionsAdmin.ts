@@ -16,5 +16,5 @@ export const bookActions = new Menu<MyContext>("book-action")
     await replyWithTimer(ctx, `O'chirildi!`, 1000);
   })
   .back("Orqaga", async (ctx) => {
-    await editBookMsg(ctx, ctx.session.admin.currentCategoryName);
+    await editBookMsg(ctx, ctx.session.admin.menuCatAdminText);
   });

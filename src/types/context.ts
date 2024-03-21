@@ -11,6 +11,8 @@ interface SessionData {
     menuCatAdminText: string;
     currentCategoryName: string;
     currentBookCategory: string;
+    currentOrderId: number;
+    currentOrderStatus: string;
   };
   user: {
     currentBookName: string;
@@ -40,6 +42,8 @@ export function initial(): SessionData {
       currentCategoryId: 0,
       menuCatAdminText: "",
       currentBookCategory: "",
+      currentOrderId: 0,
+      currentOrderStatus: "",
     },
     user: {
       currentBookName: "",
