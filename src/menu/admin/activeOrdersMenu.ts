@@ -1,19 +1,21 @@
 import { Menu, MenuRange } from "@grammyjs/menu";
 import { MyContext } from "../../types/context";
-import { getAllOrders, getOrderItems } from "../../db/ordertable";
-import { editBookMsg } from "../../menu/admin/bookmenuadmin";
+import { getActiveOrders, getOrderItems } from "../../db/ordertable";
 import { orderInfoText } from "../../handlers/adminOrderText";
-export let menuOrdersAdmin = new Menu<MyContext>("menu-orders-admin");
+import { editBookMsg } from "./bookmenuadmin";
 
-menuOrdersAdmin
+export const activeOrdersMenu = new Menu<MyContext>("active-orders");
+
+activeOrdersMenu
   .dynamic(async () => {
     const range = new MenuRange<MyContext>();
-    const orders = await getAllOrders();
+    const orders = await getActiveOrders();
     let cnt = 1;
+    console.log(orders);
     for (let i of orders) {
       range
         .submenu(
-          `${i.status !== "Aktiv" ? "✅" : "📩"}${cnt++}. ${
+          `${cnt++}. ${
             i.tg_name
           } ------------------ ${i.order_date.toLocaleDateString()}`,
           "order-item-menu",
@@ -24,20 +26,13 @@ menuOrdersAdmin
             const text = await orderInfoText(orderInfo);
             editBookMsg(
               ctx,
-              `Buyurtma haqida to'liq ma'lumot! ${text} Jami: ${i.total_amount} 📞:${i.phone_number}`
+              `Buyurtma haqida to'liq ma'lumot! ${text} Jami: ${i.total_amount} 📞:${i.phone_number} `
             );
           }
         )
 
-        // .text(`Bajarish`, async (ctx) => {
-        //   if (ctx.session.admin.currentOrderStatus == "Aktiv") {
-        //     ctx.session.admin.currentOrderStatus = `✅`;
-        //     await changeStatus(i.id);
-        //     ctx.menu.update();
-        //   }
-        // })
         .row();
     }
     return range;
   })
-  .back("Orqaga 🔙");
+  .back("Orqaga 🔙", (ctx) => editBookMsg(ctx, `Buyurtmalar`));

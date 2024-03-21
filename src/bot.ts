@@ -32,6 +32,8 @@ import { makeOrder } from "./menu/user/makingOrder";
 import { gettingPhone } from "./conversations/user/userOrder";
 import { orderActionMenu } from "./menu/admin/orderActions";
 import { orderItemMenu } from "./menu/admin/orderItemMenu";
+import { activeOrdersMenu } from "./menu/admin/activeOrdersMenu";
+import { passiveOrdersMenu } from "./menu/admin/passiveOrdersMenu";
 
 config();
 
@@ -61,7 +63,10 @@ actions.register(adminMenu);
 actions.register(menuCategoryAdmin);
 actions.register(orderActionMenu);
 orderActionMenu.register(menuOrdersAdmin);
-menuOrdersAdmin.register(orderItemMenu);
+orderActionMenu.register(activeOrdersMenu);
+orderActionMenu.register(passiveOrdersMenu);
+
+orderActionMenu.register(orderItemMenu);
 menuCategoryAdmin.register(bookMenuAdmin);
 bookMenuAdmin.register(bookActions);
 bookActions.register(updateBook);

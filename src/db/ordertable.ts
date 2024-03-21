@@ -67,10 +67,11 @@ export async function getActiveOrders() {
       "user.tg_name",
       "orders.total_amount"
     )
-    .join("user", { "user.id": "orders.user_id" })
-    .where({ status: "Aktiv" });
+    .join("user", function (this: any) {
+      this.on("user.id", "=", "orders.user_id");
+    })
+    .where({ "orders.status": "Aktiv" });
 }
-
 export async function getPassiveOrders() {
   return await knex("orders")
     .select(
@@ -81,8 +82,10 @@ export async function getPassiveOrders() {
       "user.tg_name",
       "orders.total_amount"
     )
-    .join("user", { "user.id": "orders.user_id" })
-    .where({ status: "Passiv" });
+    .join("user", function (this: any) {
+      this.on("user.id", "=", "orders.user_id");
+    })
+    .where({ "orders.status": "Passiv" });
 }
 
 export async function getOrderItems(id: number) {
