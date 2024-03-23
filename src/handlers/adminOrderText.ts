@@ -13,7 +13,7 @@ export async function orderText(ctx: MyContext) {
       }
     })
     .join("\n");
-  return `Sizga ${ctx.from?.first_name} tomonidan buyurtma bor!:  
+  return `🆕Sizga ${ctx.from?.first_name} tomonidan buyurtma bor!:  
   ${text} Jami: ${ctx.session.user.orderAmount}`;
 }
 

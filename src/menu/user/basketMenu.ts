@@ -5,9 +5,14 @@ import { firstUserText } from "../../constants";
 import { replyWithTimer } from "../../handlers/replyTimer";
 
 export let basketMenu = new Menu<MyContext>("basket-menu")
-  .text(`Buyurtma berish 🚀`, async (ctx) => {
+  .submenu(`Buyurtma berish 🚀`, "menu-category", async (ctx) => {
     await ctx.conversation.enter("gettingPhone");
-    ctx.menu.close();
+    editBookMsg(ctx, firstUserText);
+    ctx.session.user.currentBookCount = [];
+    ctx.session.user.currentBookCountIndex = 0;
+    ctx.session.user.selectedBooks = [];
+    ctx.session.user.orderAmount = 0;
+    ctx.session.user.orderBookIds = [];
   })
 
   .submenu(`Savatni tozalash`, "menu-category", (ctx) => {

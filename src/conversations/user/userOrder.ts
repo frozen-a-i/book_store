@@ -1,25 +1,39 @@
-import { getAllAdmin } from "../../db/admintable";
+import { Menu } from "@grammyjs/menu";
 import { createOrderItem, createOrders } from "../../db/ordertable";
-import { sendToAdmin } from "../../handlers/adminOrder";
 import { orderText } from "../../handlers/adminOrderText";
 import { MyContext, MyConversation } from "../../types/context";
 import { deleteMessage } from "../admin/newBook";
+import { replyWithTimer } from "../../handlers/replyTimer";
+import { sendToAdmin } from "../../handlers/adminOrder";
+import { getPhone, getUser } from "../../db/userTable";
 
 export async function gettingPhone(
   conversation: MyConversation,
   ctx: MyContext
 ) {
-  const message = await ctx.reply(`Telefon raqamingizni kiriting:`, {
-    reply_markup: {
-      keyboard: [[{ text: "Share My Phone Number", request_contact: true }]],
-      resize_keyboard: true,
-      one_time_keyboard: true,
-    },
-  });
+  const userObj = await getUser(ctx.from!.id);
+  let phonenumber;
+  if (!userObj) {
+    const message = await ctx.reply(`Telefon raqamingizni kiriting:`, {
+      reply_markup: {
+        keyboard: [[{ text: "Share My Phone Number", request_contact: true }]],
+        resize_keyboard: true,
+        one_time_keyboard: true,
+      },
+    });
 
-  let phone = await conversation.wait();
-  const phonenumber = phone.msg?.contact?.phone_number;
-  ctx.reply(`Buyurtmangiz uchun rahmat, siz bilan aloqaga chiqamiz!☺️`);
+    let phone = await conversation.wait();
+    phonenumber = phone.msg?.contact?.phone_number;
+    await deleteMessage(ctx, message.message_id);
+    // await ctx.conversation.enter("login");
+    phone.deleteMessage();
+  } else phonenumber = await getPhone(ctx.from?.id);
+  
+  replyWithTimer(
+    ctx,
+    `Buyurtmangiz uchun rahmat, siz bilan aloqaga chiqamiz!☺️`,
+    1000
+  );
 
   await createOrders(
     ctx.from!.id,
@@ -48,6 +62,6 @@ export async function gettingPhone(
   ctx.session.user.selectedBooks = [];
   ctx.session.user.orderAmount = 0;
   ctx.session.user.orderBookIds = [];
-  await deleteMessage(ctx, message.message_id);
-  // phone.deleteMessage();
+
+  return true;
 }

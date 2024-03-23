@@ -4,9 +4,9 @@ import axios from "axios";
 const apiUrl = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage`;
 
 export async function sendToAdmin(ctx: MyContext, messagetext: string) {
-  const admins = await getAllAdmin();
+  const adminss = await getAllAdmin();
 
-  admins.map(async (element: any) => {
+  adminss.map(async (element: any) => {
     if (element) {
       const payload = {
         chat_id: element.tg_id,
@@ -23,4 +23,5 @@ export async function sendToAdmin(ctx: MyContext, messagetext: string) {
         });
     }
   });
+
 }

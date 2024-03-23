@@ -54,11 +54,14 @@ bot.use(createConversation(newBook));
 bot.use(createConversation(newCategory));
 
 bot.use(createConversation(updateBookPrice));
-bot.use(createConversation(gettingPhone));
-bot.use(createConversation(updateBookDescription));
 
+bot.use(createConversation(gettingPhone));
+
+bot.use(createConversation(updateBookDescription));
 // menu
+
 bot.use(actions);
+bot.use(menuCategory);
 actions.register(adminMenu);
 actions.register(menuCategoryAdmin);
 actions.register(orderActionMenu);
@@ -71,11 +74,11 @@ menuCategoryAdmin.register(bookMenuAdmin);
 bookMenuAdmin.register(bookActions);
 bookActions.register(updateBook);
 updateBook.register(categoryUpdate);
+
 menuCategory.register(bookMenu);
 menuCategory.register(basketMenu);
 bookMenu.register(makeOrder);
 
-bot.use(menuCategory);
 bot.use(dbErrorHandler);
 bot.use(bookMenu);
 
