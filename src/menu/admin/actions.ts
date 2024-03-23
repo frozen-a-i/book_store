@@ -1,7 +1,11 @@
 import { Menu } from "@grammyjs/menu";
 import { editBookMsg } from "./bookmenuadmin";
 import { MyContext } from "../../types/context";
-import { actionMenuText1, actionMenuText2, actionMenuText3 } from "../../constants";
+import {
+  actionMenuText1,
+  actionMenuText2,
+  actionMenuText3,
+} from "../../constants";
 
 export const actions = new Menu<MyContext>("action")
 
@@ -12,6 +16,6 @@ export const actions = new Menu<MyContext>("action")
   .submenu("Adminlar", "admin-menu", async (ctx) => {
     await editBookMsg(ctx, actionMenuText2);
   })
-  .submenu("Buyurtmalar", 'order-action-menu', async (ctx) => {
+  .submenu("Buyurtmalar", "order-action-menu", async (ctx) => {
     await editBookMsg(ctx, actionMenuText3);
   });

@@ -10,11 +10,11 @@ composer.command("start", async (ctx) => {
   const userObj = await getUser(ctx.from?.id);
   const adminObj = await getAdmin(ctx.from?.username);
   console.log(adminObj);
-  // if (adminObj.length > 0) await admins(ctx);
-  // else {
-  if (!userObj) createUser(ctx);
-  await ctx.conversation.enter("login");
-  // }
+  if (adminObj.length > 0) await admins(ctx);
+  else {
+    if (!userObj) createUser(ctx);
+    await ctx.conversation.enter("login");
+  }
 });
 
 export { composer as startHandler };

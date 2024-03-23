@@ -1,6 +1,6 @@
 import { Conversation, ConversationFlavor } from "@grammyjs/conversations";
 import { Context, SessionFlavor } from "grammy";
-
+import type { ParseModeFlavor } from "@grammyjs/parse-mode";
 interface SessionData {
   admin: {
     updateBookText: string;
@@ -62,7 +62,7 @@ export function initial(): SessionData {
     },
   };
 }
-export type MyContext = Context &
+export type MyContext = ParseModeFlavor<Context> &
   ConversationFlavor &
   SessionFlavor<SessionData>;
 export type MyConversation = Conversation<MyContext>;
