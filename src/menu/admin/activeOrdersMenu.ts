@@ -24,9 +24,16 @@ activeOrdersMenu
             ctx.session.admin.currentOrderStatus = i.status;
             ctx.session.admin.currentOrderId = i.id;
             const text = await orderInfoText(orderInfo);
+            
             editBookMsg(
               ctx,
-              `Buyurtma haqida to'liq ma'lumot! ${text} Jami: ${i.total_amount} 📞:${i.phone_number} `
+              `<b>Buyurtma haqida to'liq ma'lumot!</b> 
+
+      ${text} 
+    
+  Jami: <b>${i.total_amount}</b>
+      
+  📞: ${i.phone_number} `
             );
           }
         )
@@ -35,4 +42,4 @@ activeOrdersMenu
     }
     return range;
   })
-  .back("Orqaga 🔙", (ctx) => editBookMsg(ctx, `Buyurtmalar`));
+  .back("Orqaga 🔙", (ctx) => editBookMsg(ctx, `<b>📬Buyurtmalar</b>`));

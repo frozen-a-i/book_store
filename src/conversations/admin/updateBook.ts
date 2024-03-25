@@ -9,7 +9,9 @@ export async function updateBookPrice(
   conversation: MyConversation,
   ctx: MyContext
 ) {
-  const message = await ctx.reply(`Yangi narxni kiriting`);
+  const message = await ctx.reply(`<i>Yangi narxni kiriting</i>`, {
+    parse_mode: "HTML",
+  });
   let price = await conversation.wait();
   const pricetext = price.msg?.text;
 
@@ -24,7 +26,7 @@ export async function updateBookPrice(
       ctx.reply(`Kiritishda xatolik bo'ldi`);
       throw error;
     }
-  
+
   price.deleteMessage();
 }
 

@@ -26,7 +26,13 @@ passiveOrdersMenu
             const text = await orderInfoText(orderInfo);
             editBookMsg(
               ctx,
-              `Buyurtma haqida to'liq ma'lumot! ${text} Jami: ${i.total_amount} 📞:${i.phone_number} `
+              `<b>Buyurtma haqida to'liq ma'lumot!</b>
+              
+        ${text} 
+
+        Jami: <b>${i.total_amount}</b>
+               
+        📞: <b>${i.phone_number}</b> `
             );
           }
         )
@@ -35,4 +41,4 @@ passiveOrdersMenu
     }
     return range;
   })
-  .back("Orqaga 🔙", (ctx) => editBookMsg(ctx, `Buyurtmalar`));
+  .back("Orqaga 🔙", (ctx) => editBookMsg(ctx, `<b>📬Buyurtmalar</b>`));

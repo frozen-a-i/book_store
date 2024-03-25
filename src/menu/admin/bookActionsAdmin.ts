@@ -6,15 +6,15 @@ import { replyWithTimer } from "../../handlers/replyTimer";
 
 export const bookActions = new Menu<MyContext>("book-action")
 
-  .submenu(`O'zgartirish`, "update-action", async (ctx) => {
+  .submenu(`⚙️O'zgartirish`, "update-action", async (ctx) => {
     await editBookMsg(ctx, ctx.session.admin.updateBookText);
-    console.log("update bo,ldi");
   })
 
-  .text(`O'chirish`, async (ctx) => {
+  .text(`❌O'chirish`, async (ctx) => {
     await deleteBook(ctx.session.admin.currentBookName);
-    await replyWithTimer(ctx, `O'chirildi!`, 1000);
+    await replyWithTimer(ctx, `O'chirildi!✅`, 1000);
   })
-  .back("Orqaga", async (ctx) => {
+  .row()
+  .back("Orqaga🔙", async (ctx) => {
     await editBookMsg(ctx, ctx.session.admin.menuCatAdminText);
   });

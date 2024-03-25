@@ -17,7 +17,10 @@ menuCategory
           ctx.session.user.currentCategoryId = i.id;
           ctx.session.user.currentCategoryName = i.category_name;
 
-          await editBookMsg(ctx, `${i.category_name} janridagi asarlarii: `);
+          await editBookMsg(
+            ctx,
+            `<b>${i.category_name}</b> janridagi asarlar: `
+          );
         })
         .row();
     }

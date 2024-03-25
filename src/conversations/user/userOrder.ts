@@ -14,9 +14,11 @@ export async function gettingPhone(
   const userObj = await getUser(ctx.from!.id);
   let phonenumber;
   if (!userObj) {
-    const message = await ctx.reply(`Telefon raqamingizni kiriting:`, {
+    const message = await ctx.reply(`📞Telefon raqamingizni kiriting:`, {
       reply_markup: {
-        keyboard: [[{ text: "Share My Phone Number", request_contact: true }]],
+        keyboard: [
+          [{ text: "📞Telefon raqamni yuborish", request_contact: true }],
+        ],
         resize_keyboard: true,
         one_time_keyboard: true,
       },
@@ -27,8 +29,8 @@ export async function gettingPhone(
     await deleteMessage(ctx, message.message_id);
     // await ctx.conversation.enter("login");
     phone.deleteMessage();
-  } else phonenumber = await getPhone(ctx.from?.id);
-  
+  } else phonenumber = (await getPhone(ctx.from?.id)).phone_number;
+
   replyWithTimer(
     ctx,
     `Buyurtmangiz uchun rahmat, siz bilan aloqaga chiqamiz!☺️`,

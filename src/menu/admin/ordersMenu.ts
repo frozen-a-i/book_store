@@ -24,18 +24,17 @@ menuOrdersAdmin
             const text = await orderInfoText(orderInfo);
             editBookMsg(
               ctx,
-              `Buyurtma haqida to'liq ma'lumot! ${text} Jami: ${i.total_amount} 📞:${i.phone_number}`
+              `<b>Buyurtma haqida to'liq ma'lumot!</b>
+             
+      ${text} 
+      
+      Jami: <b>${i.total_amount}</b>
+      
+      📞:<b> ${i.phone_number}</b>`
             );
           }
         )
 
-        // .text(`Bajarish`, async (ctx) => {
-        //   if (ctx.session.admin.currentOrderStatus == "Aktiv") {
-        //     ctx.session.admin.currentOrderStatus = `✅`;
-        //     await changeStatus(i.id);
-        //     ctx.menu.update();
-        //   }
-        // })
         .row();
     }
     return range;

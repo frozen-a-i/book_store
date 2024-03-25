@@ -6,7 +6,9 @@ import { deleteMessage } from "./newBook";
 
 export async function newAdmin(conversation: MyConversation, ctx: MyContext) {
   let messageIds: number[] = [];
-  const adminUsername = await ctx.reply(`Admin USERNAMEini kiriting:`);
+  const adminUsername = await ctx.reply(`Admin <b>USERNAME</b>ini kiriting:`, {
+    parse_mode: "HTML",
+  });
 
   let message = await conversation.wait();
   let username = message.msg?.text;

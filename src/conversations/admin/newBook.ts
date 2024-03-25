@@ -17,7 +17,7 @@ export async function deleteMessage(ctx: MyContext, messageId: number) {
 
 export async function newBook(conversation: MyConversation, ctx: MyContext) {
   let messageIds: number[] = [];
-  const booknameMsg = await ctx.reply(`Kitob nomini kiriting:`);
+  const booknameMsg = await ctx.reply(`<i>Kitob nomini kiriting</i>:`, { parse_mode: "HTML"});
 
   let message = await conversation.wait();
   const bookname = message.msg?.text;
@@ -25,14 +25,14 @@ export async function newBook(conversation: MyConversation, ctx: MyContext) {
   await deleteMessage(ctx, messageIds.shift()!);
   message.deleteMessage();
 
-  const priceMsg = await ctx.reply(`Narhi:`);
+  const priceMsg = await ctx.reply(`<i>Narhi</i>:`,{ parse_mode: "HTML"});
   message = await conversation.wait();
   const price = message.msg?.text;
   message.deleteMessage();
   messageIds.push(priceMsg.message_id);
   deleteMessage(ctx, messageIds.shift()!);
 
-  const descriptionMsg = await ctx.reply(`Kitob haqida qisqacha ma'lumot`);
+  const descriptionMsg = await ctx.reply(`<i>Kitob haqida qisqacha ma'lumot</i>`,{ parse_mode: "HTML"});
   message = await conversation.wait();
   const description = message.msg?.text;
   message.deleteMessage();

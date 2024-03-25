@@ -6,7 +6,8 @@ import { editBookMsg } from "./bookmenuadmin";
 
 export const orderItemMenu = new Menu<MyContext>("order-item-menu")
   .text((ctx) => `${ctx.session.admin.currentOrderStatus}`)
-  .text(`Buyurtmani yuborish!`, async (ctx) => {
+  .row()
+  .text(`🚀Buyurtmani yuborish!`, async (ctx) => {
     if (ctx.session.admin.currentOrderStatus == "Aktiv") {
       await changeStatus(ctx.session.admin.currentOrderId);
       ctx.session.admin.currentOrderStatus = "Passiv";
@@ -14,4 +15,5 @@ export const orderItemMenu = new Menu<MyContext>("order-item-menu")
       replyWithTimer(ctx, `Buyurtma passiv holatga o'tkazildi!✅`, 1000);
     } else replyWithTimer(ctx, `Buyurtma yuborilgan!!!`, 1000);
   })
-  .back("Orqaga", (ctx) => editBookMsg(ctx, `Buyurtmalar`));
+  .row()
+  .back("Orqaga🔙", (ctx) => editBookMsg(ctx, `<b>📬Buyurtmalar</b>`));

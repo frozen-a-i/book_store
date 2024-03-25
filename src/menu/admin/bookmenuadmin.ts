@@ -20,21 +20,25 @@ bookMenuAdmin
           ctx.session.admin.currentBookDesc = i.description;
           ctx.session.admin.currentBookCategory =
             ctx.session.admin.currentCategoryName;
-          ctx.session.admin.updateBookText = `Kitob nomi:${ctx.session.admin.currentBookName}, Narhi: ${ctx.session.admin.currentBookPrice}, Janri: ${ctx.session.admin.currentBookCategory}Qisqacha ma'lumot: ${ctx.session.admin.currentBookDesc} `;
+          ctx.session.admin.updateBookText = `Kitob nomi:<b>${ctx.session.admin.currentBookName}</b>, 
+          
+Narhi: <b>${ctx.session.admin.currentBookPrice}</b>, 
+Janri: <b>${ctx.session.admin.currentBookCategory}</b>, 
+Qisqacha ma'lumot: <b>${ctx.session.admin.currentBookDesc}</b>`;
 
-          await editBookMsg(ctx, ctx.session.admin.currentBookName);
+          await editBookMsg(ctx, `📕 ${ctx.session.admin.currentBookName}`);
         })
         .row();
     }
     return range;
   })
-  .text("Yangini qo'shish ➕", async (ctx) => {
+  .text("➕Yangini qo'shish", async (ctx) => {
     await ctx.conversation.enter("newBook");
   })
-  .back("Orqaga", async (ctx) => {
+  .back("Orqaga🔙", async (ctx) => {
     await editBookMsg(ctx, actionMenuText1);
   });
 
 export async function editBookMsg(ctx: MyContext, text: string) {
-  await ctx.editMessageText(text);
+  await ctx.editMessageText(text, { parse_mode: "HTML" });
 }

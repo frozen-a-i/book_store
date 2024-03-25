@@ -32,7 +32,7 @@ export let makeOrder = new Menu<MyContext>("make-order")
     ctx.menu.update();
   })
   .row()
-  .text(`Savatga qo'shish`, (ctx) => {
+  .text(`➕Savatga qo'shish`, (ctx) => {
     if (
       ctx.session.user.currentBookCount[ctx.session.user.currentBookCountIndex]
     ) {
@@ -52,13 +52,13 @@ export let makeOrder = new Menu<MyContext>("make-order")
       ctx.session.user.currentBookCountIndex
     ] = 0;
 
-    replyWithTimer(ctx, `Savatga qo'shildi!`, 500);
+    replyWithTimer(ctx, `Savatga qo'shildi!✅`, 500);
   })
   .row()
   .submenu(`Savatcha🛒`, "basket-menu", async (ctx) => {
     return ctx.editMessageText(await savatchatext(ctx));
   })
-  .back("Ortga", (ctx) => editBookMsg(ctx, ctx.session.user.currentBookName));
+  .back("Ortga🔙", (ctx) => editBookMsg(ctx, ctx.session.user.currentBookName));
 
 export async function savatchatext(ctx: MyContext) {
   const text = ctx.session.user.selectedBooks
@@ -69,12 +69,14 @@ export async function savatchatext(ctx: MyContext) {
           " ",
           ctx.session.user.orderBookIds[index]
         );
-        return `${element} --> ${ctx.session.user.currentBookCount[index]} ta, narxi: ${ctx.session.user.currentBookPrices[index]} so'mdan`;
+        return `  ${element} --> ${ctx.session.user.currentBookCount[index]} ta, narxi: ${ctx.session.user.currentBookPrices[index]}`;
       }
     })
-    .join("\n");
+    .join("\n  ");
   return (
-    `Savatchada:  ${text} Jami: ${ctx.session.user.orderAmount}` ||
-    `Savatda kitoblar mavjud emas🙁`
+    `Savatchada:
+
+    ${text} 
+      Jami: ${ctx.session.user.orderAmount}` || `Savatda kitoblar mavjud emas🙁`
   );
 }

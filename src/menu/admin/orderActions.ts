@@ -9,8 +9,8 @@ export const orderActionMenu = new Menu<MyContext>("order-action-menu")
   })
   .row()
   .submenu("📤 Yuborilgan buyurtmalar", "passive-orders", (ctx) => {
-    editBookMsg(ctx, `Yuborilgan buyurtmalar:`);
+    editBookMsg(ctx, `📤Yuborilgan buyurtmalar:`);
   })
   .row()
-  .submenu("Hammasi", "menu-orders-admin")
-  .back("🔙", (ctx) => editBookMsg(ctx, firstMenuText));
+  .submenu("📨Hammasi", "menu-orders-admin")
+  .back("Orqaga🔙", (ctx) => editBookMsg(ctx, firstMenuText));

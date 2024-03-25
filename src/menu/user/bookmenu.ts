@@ -23,9 +23,11 @@ bookMenu
             ctx.session.user.currentBookCountIndex
           ] = 0;
           ctx.session.user.currentBookPrice = i.price;
+
+          ctx.session.user.currentBookMsgText = `Kitob nomi: <b>${i.book_name}</b>, 
           
-          ctx.session.user.currentBookMsgText = `Kitob nomi:${i.book_name}, Narhi: ${i.price}, 
-          Qisqacha ma'lumot: ${i.description} `;
+Narhi: <b>${i.price}</b>, 
+Qisqacha ma'lumot: <i>${i.description}</i>`;
           await editBookMsg(ctx, ctx.session.user.currentBookMsgText);
         })
 

@@ -8,7 +8,7 @@ export async function newCategory(
   conversation: MyConversation,
   ctx: MyContext
 ) {
-  const message = await ctx.reply(`Yangi janrni kiriting:`);
+  const message = await ctx.reply(`<i>Yangi janrni kiriting:</i>`,{ parse_mode: "HTML"});
 
   let category = await conversation.wait();
   const categoryname = category.msg?.text;

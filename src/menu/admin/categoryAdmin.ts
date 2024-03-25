@@ -16,7 +16,7 @@ menuCategoryAdmin
           ctx.session.admin.currentCategoryId = i.id;
           ctx.session.admin.currentCategoryName = i.category_name;
 
-          ctx.session.admin.menuCatAdminText = `${i.category_name} janridagi asarlar: `;
+          ctx.session.admin.menuCatAdminText = `<b>${i.category_name} </b>janridagi asarlar: `;
 
           editBookMsg(ctx, ctx.session.admin.menuCatAdminText);
         })
@@ -25,7 +25,7 @@ menuCategoryAdmin
     }
     return range;
   })
-  .text("Yangini qo'shish ➕", async (ctx) => {
+  .text("➕Yangini qo'shish", async (ctx) => {
     await ctx.conversation.enter("newCategory");
   })
   .back("Orqaga 🔙", (ctx) => editBookMsg(ctx, firstMenuText));

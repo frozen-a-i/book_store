@@ -9,13 +9,13 @@ import {
 
 export const actions = new Menu<MyContext>("action")
 
-  .submenu("Janrlar", "menu-category-admin", async (ctx) => {
+  .submenu("📝Janrlar", "menu-category-admin", async (ctx) => {
     await editBookMsg(ctx, actionMenuText1);
   })
 
-  .submenu("Adminlar", "admin-menu", async (ctx) => {
+  .submenu("🔑Adminlar", "admin-menu", async (ctx) => {
     await editBookMsg(ctx, actionMenuText2);
   })
-  .submenu("Buyurtmalar", "order-action-menu", async (ctx) => {
+  .submenu("📬Buyurtmalar", "order-action-menu", async (ctx) => {
     await editBookMsg(ctx, actionMenuText3);
   });
