@@ -61,22 +61,20 @@ export let makeOrder = new Menu<MyContext>("make-order")
   .back("Ortga🔙", (ctx) => editBookMsg(ctx, ctx.session.user.currentBookName));
 
 export async function savatchatext(ctx: MyContext) {
+  const hasItems = ctx.session.user.selectedBooks.some(
+    (_, index) => ctx.session.user.currentBookCount[index] > 0
+  );
+
+  if (!hasItems) return `Savatda kitoblar mavjud emas🙁`;
+
   const text = ctx.session.user.selectedBooks
     .map((element, index) => {
       if (ctx.session.user.currentBookCount[index]) {
-        console.log(
-          ctx.session.user.currentBookCount[index],
-          " ",
-          ctx.session.user.orderBookIds[index]
-        );
         return `  ${element} --> ${ctx.session.user.currentBookCount[index]} ta, narxi: ${ctx.session.user.currentBookPrices[index]}`;
       }
     })
+    .filter(Boolean)
     .join("\n  ");
-  return (
-    `Savatchada:
 
-    ${text} 
-      Jami: ${ctx.session.user.orderAmount}` || `Savatda kitoblar mavjud emas🙁`
-  );
+  return `Savatchada:\n\n  ${text}\n\n  Jami: ${ctx.session.user.orderAmount}`;
 }

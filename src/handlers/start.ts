@@ -12,7 +12,7 @@ composer.command("start", async (ctx) => {
   console.log(adminObj);
   if (adminObj.length > 0) await admins(ctx);
   else {
-    if (!userObj) createUser(ctx);
+    if (!userObj) await createUser(ctx);
     await ctx.conversation.enter("login");
   }
 });

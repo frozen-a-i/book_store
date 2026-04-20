@@ -8,7 +8,7 @@ export async function getPhone(tg_id: number | undefined) {
   return await knex("user")
     .select("orders.phone_number")
     .join("orders", { "orders.user_id": "user.id" })
-    .where({ "user_id": tg_id })
+    .where({ "orders.user_id": tg_id })
     .first();
 }
 

@@ -6,22 +6,19 @@ const apiUrl = `https://api.telegram.org/bot${process.env.BOT_TOKEN}/sendMessage
 export async function sendToAdmin(ctx: MyContext, messagetext: string) {
   const adminss = await getAllAdmin();
 
-  adminss.map(async (element: any) => {
-    if (element) {
-      const payload = {
-        chat_id: element.tg_id,
-        text: messagetext,
-      };
-      console.log(element.tg_id);
-      axios
-        .post(apiUrl, payload)
-        .then((response) => {
-          console.log("Message sent successfully:", response.data);
-        })
-        .catch((error) => {
-          console.error("Error sending message:", error.message);
-        });
-    }
-  });
-
+  await Promise.all(
+    adminss.map(async (element: any) => {
+      if (element.tg_id) {
+        const payload = {
+          chat_id: element.tg_id,
+          text: messagetext,
+        };
+        try {
+          await axios.post(apiUrl, payload);
+        } catch (error: any) {
+          console.error("Error sending message to admin:", error.message);
+        }
+      }
+    })
+  );
 }

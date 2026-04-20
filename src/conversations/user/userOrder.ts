@@ -11,9 +11,9 @@ export async function gettingPhone(
   conversation: MyConversation,
   ctx: MyContext
 ) {
-  const userObj = await getUser(ctx.from!.id);
-  let phonenumber;
-  if (!userObj) {
+  const phoneObj = await getPhone(ctx.from?.id);
+  let phonenumber: string | undefined;
+  if (!phoneObj?.phone_number) {
     const message = await ctx.reply(`📞Telefon raqamingizni kiriting:`, {
       reply_markup: {
         keyboard: [
@@ -27,9 +27,10 @@ export async function gettingPhone(
     let phone = await conversation.wait();
     phonenumber = phone.msg?.contact?.phone_number;
     await deleteMessage(ctx, message.message_id);
-    // await ctx.conversation.enter("login");
     phone.deleteMessage();
-  } else phonenumber = (await getPhone(ctx.from?.id)).phone_number;
+  } else {
+    phonenumber = phoneObj.phone_number;
+  }
 
   replyWithTimer(
     ctx,
@@ -45,15 +46,17 @@ export async function gettingPhone(
     ctx.session.user.orderAmount
   );
 
-  ctx.session.user.currentBookCount.map(async (element, index) => {
-    if (element) {
-      await createOrderItem(
-        ctx.from!.id,
-        ctx.session.user.orderBookIds[index],
-        ctx.session.user.currentBookCount[index]
-      );
-    }
-  });
+  await Promise.all(
+    ctx.session.user.currentBookCount.map(async (element, index) => {
+      if (element) {
+        await createOrderItem(
+          ctx.from!.id,
+          ctx.session.user.orderBookIds[index],
+          ctx.session.user.currentBookCount[index]
+        );
+      }
+    })
+  );
 
   const text = (await orderText(ctx)) + ` Telefon raqami: ${phonenumber}`;
 
@@ -64,6 +67,7 @@ export async function gettingPhone(
   ctx.session.user.selectedBooks = [];
   ctx.session.user.orderAmount = 0;
   ctx.session.user.orderBookIds = [];
+  ctx.session.user.currentBookPrices = [];
 
   return true;
 }

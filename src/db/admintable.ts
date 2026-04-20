@@ -11,6 +11,7 @@ export async function createAdmin(username?: string | undefined) {
   if (username)
     return await knex("admins").insert({
       admin_name: username,
+      tg_id: 0,
     });
 }
 export async function updateAdminId(
